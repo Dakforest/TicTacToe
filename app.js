@@ -1,16 +1,19 @@
 // HTML Elements
 const statusDiv = document.querySelector('.status');
 const resetDiv = document.querySelector('.reset');
+const beginBtn = document.querySelector('.btnBegin');
+
 const cellDivs = document.querySelectorAll('.cell');
 const playerBtns = document.querySelectorAll('.btnPlayer');
 const compBtns = document.querySelectorAll('.btnComp');
+
 
 // Game Variables
 let gameIsLive = true;
 let xIsNext = true;
 let players = 0;
-let xIsPlayer = undefined
-let oIsPlayer = undefined
+let xIsPlayer = undefined;
+let oIsPlayer = undefined;
 
 // Functions
 
@@ -51,11 +54,52 @@ const checkGameStatus = () => {
 		xIsNext = !xIsNext
 		if (xIsNext){
 			statusDiv.innerHTML = `X is Next`;
+			whoTurn();
 		} else {
 			statusDiv.innerHTML = `O is Next`;
+			whoTurn();
 		}
 	}//End "Is there a winner?"
 }//End checkGameStatus()
+
+const whoTurn = () => {
+	//Whose turn is it, and are they a player?
+	if (xIsNext === true){
+		if (xIsPlayer === true){
+			return;
+		} else {
+			compAction();
+		}
+	} else {
+		if (oIsPlayer === true){
+			return;
+		} else {
+			compAction();
+		}
+	}
+};
+
+const compAction = () => {
+	var rndCell = Math.floor(Math.random() * 9);
+	var move = true;
+	
+	while (move) {
+		if (cellDivs[rndCell].classList[1]) {
+			rndCell = Math.floor(Math.random() * 9);
+			continue;
+		} else {
+			if(xIsNext){
+				cellDivs[rndCell].classList.add("X");
+				checkGameStatus();
+			} else {
+				cellDivs[rndCell].classList.add("O");
+				checkGameStatus();
+			}
+			move = false;
+		}
+	}//End While Loop
+};//End compAction
+
 
 // Event Handlers
 const handleReset = (e) => {
@@ -73,7 +117,7 @@ const handleReset = (e) => {
 	//Reset Status to X is next. 
 	statusDiv.innerHTML = `X is Next`;
 	
-};//End handlerReset
+};//End handleReset
 
 const handleCellClick = (e) => {
 	//Fetch all classes of clicked cell into an array variable.
@@ -97,28 +141,30 @@ const handleCellClick = (e) => {
 };//End handleCellClick
 
 const handlePlayerClick = (e) => {
-	players++;
-	
 	if(players === 0){
 		xIsPlayer = true;
 	} else if (players === 1){
 		oIsPlayer = true;
 	} 
+	players ++;
 };
 
 const handleCompClick = (e) => {
-	players++;
-	
-	
 	if(players === 0){
 		xIsPlayer = false;
 	} else if (players === 1){
 		oIsPlayer = false;
-	} 
+	}
+	players ++;
+}
+
+const handleBegin = (e) => {
+	whoTurn();
 }
 
 // Event Listeners
 resetDiv.addEventListener('click', handleReset)
+beginBtn.addEventListener('click', handleBegin)
 
 for(const cellDiv of cellDivs) {
 	//Cycle through all items in cellDivs array, and assign event listener.
@@ -130,6 +176,6 @@ for(const playerBtn of playerBtns){
 }
 
 for(const compBtn of compBtns){
-	compBtn.addEventListener('click', handerCompClick)
+	compBtn.addEventListener('click', handleCompClick)
 }
 
