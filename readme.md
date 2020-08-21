@@ -4,6 +4,7 @@ As I continue to work with this project, I plan to add code for a computer oppon
 
 - [x] Build Game Board
 - [x] Build initial game logic
+- [x] Build reset button logic
 - [] Build computer opponent code
 - [] Build code to chose player/computer for X and O. 
 - [] Customize game appearance 
