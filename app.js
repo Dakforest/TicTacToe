@@ -2,10 +2,15 @@
 const statusDiv = document.querySelector('.status');
 const resetDiv = document.querySelector('.reset');
 const cellDivs = document.querySelectorAll('.cell');
+const playerBtns = document.querySelectorAll('.btnPlayer');
+const compBtns = document.querySelectorAll('.btnComp');
 
 // Game Variables
 let gameIsLive = true;
 let xIsNext = true;
+let players = 0;
+let xIsPlayer = undefined
+let oIsPlayer = undefined
 
 // Functions
 
@@ -63,6 +68,7 @@ const handleReset = (e) => {
 	//Reset game markers.
 	gameIsLive = true;
 	xIsNext = true;
+	players = 0;
 	
 	//Reset Status to X is next. 
 	statusDiv.innerHTML = `X is Next`;
@@ -90,9 +96,28 @@ const handleCellClick = (e) => {
 	}
 };//End handleCellClick
 
-// Event Listeners
+const handlePlayerClick = (e) => {
+	players++;
+	
+	if(players === 0){
+		xIsPlayer = true;
+	} else if (players === 1){
+		oIsPlayer = true;
+	} 
+};
 
-//Asign event listener to the Reset Cell.
+const handleCompClick = (e) => {
+	players++;
+	
+	
+	if(players === 0){
+		xIsPlayer = false;
+	} else if (players === 1){
+		oIsPlayer = false;
+	} 
+}
+
+// Event Listeners
 resetDiv.addEventListener('click', handleReset)
 
 for(const cellDiv of cellDivs) {
@@ -100,4 +125,11 @@ for(const cellDiv of cellDivs) {
 	cellDiv.addEventListener('click', handleCellClick)
 }
 
+for(const playerBtn of playerBtns){
+	playerBtn.addEventListener('click', handlePlayerClick)
+}
+
+for(const compBtn of compBtns){
+	compBtn.addEventListener('click', handerCompClick)
+}
 
