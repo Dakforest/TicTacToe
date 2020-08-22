@@ -117,6 +117,14 @@ const handleReset = (e) => {
 	//Reset Status to X is next. 
 	statusDiv.innerHTML = `X is Next`;
 	
+	//Reset Styles
+	document.getElementById("btnPlayerX").style.display = "initial";
+	document.getElementById("btnCompX").style.display = "initial";
+	document.getElementById("btnPlayerO").style.display = "initial";
+	document.getElementById("btnCompO").style.display = "initial";
+	document.getElementById("game").style.display = "none";
+	document.getElementById("initPlayers").style.display = "initial";
+	
 };//End handleReset
 
 const handleCellClick = (e) => {
@@ -143,8 +151,10 @@ const handleCellClick = (e) => {
 const handlePlayerClick = (e) => {
 	if(players === 0){
 		xIsPlayer = true;
+		document.getElementById("btnCompX").style.display = "none";
 	} else if (players === 1){
 		oIsPlayer = true;
+		document.getElementById("btnCompO").style.display = "none";
 	} 
 	players ++;
 };
@@ -152,13 +162,17 @@ const handlePlayerClick = (e) => {
 const handleCompClick = (e) => {
 	if(players === 0){
 		xIsPlayer = false;
+		document.getElementById("btnPlayerX").style.display = "none";
 	} else if (players === 1){
 		oIsPlayer = false;
+		document.getElementById("btnPlayerO").style.display = "none";
 	}
 	players ++;
 }
 
 const handleBegin = (e) => {
+	document.getElementById("game").style.display = "block";
+	document.getElementById("initPlayers").style.display = "none";
 	whoTurn();
 }
 

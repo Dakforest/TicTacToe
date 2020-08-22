@@ -72,3 +72,23 @@ body {
 	font-size: 5em;
 }
 /* End Game Board Style */
+#initPlayers {
+	text-align: center;
+}
+.btn {
+	display: flex;
+	justify-content: space-around;
+}
+.btn div {
+	margin: .5em;
+	cursor: pointer;
+}
+.player {
+	margin: 1em;
+}
+.btnBegin {
+	cursor: pointer;
+}
+#game {
+	display: none;
+}
